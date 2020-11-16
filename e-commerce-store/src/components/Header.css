@@ -1,0 +1,91 @@
+
+.header{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #0064a7;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    justify-content: space-evenly;
+}
+
+.header__logo{
+    width: 100px;
+    object-fit: contain;
+    margin: 0 10px;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
+.header__search{
+    display: flex;
+    flex: .5;
+    align-items: center;
+    border-radius: 24px;
+}
+
+.header__inputSearch{
+    height: 12px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+}
+.searchIcon{
+    padding: 5px;
+    height: 22px !important;
+    background-color: #ffc220;
+    cursor: pointer;
+}
+
+.header__login{
+    display: flex;
+    /*justify-content: space-evenly;*/
+    justify-content: center;
+
+    align-items: center;
+}
+.login__avatar{
+    cursor: pointer;
+    color: white;
+}
+
+.header__option{
+    display: flex;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: white;
+    align-items: center;
+
+}
+
+
+.header_optionTwo{
+    margin-right: 20px;
+    padding-right: 10px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+
+}
+
+.header_optionOne{
+    margin-right: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+
+}
+
+.header_Basket{
+    display: flex;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+/*.header__search>input{*/
+/*    outline-width: 0;*/
+/*}*/
