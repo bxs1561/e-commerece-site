@@ -1,6 +1,5 @@
 import React from "react"
 import "./Header.css"
-import Logo from "../picture/Logo.png"
 import L from "../picture/L.png"
 import SearchIcon from '@material-ui/icons/Search';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';

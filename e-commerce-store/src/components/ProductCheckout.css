@@ -1,0 +1,66 @@
+.productCheckouts{
+    border-radius: 5px;
+    overflow: visible;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+.buttons>input{
+    padding:3px 6px;
+    width: 46px;
+    height: 28px;
+    border-radius: 2px;
+    background-color: #fff;
+    border: 1px solid #c2c2c2;
+    margin: 0 5px;
+}
+
+
+/*}*/
+.productCheckout_info {
+    padding-left: 20px;
+
+}
+
+.productCheckout_title {
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
+
+}
+.productCheckout_image {
+    object-fit: contain;
+    width: 180px;
+    height: 180px;
+    padding-bottom: 15px;
+    padding-right: -15px;
+}
+
+.buttons>button{
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(#fff,#f9f9f9);
+    display: inline-block;
+    border: 1px solid #c2c2c2;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 50%;
+    padding-top: 1px;
+    line-height: 1;
+}
+.productCheckout_info > button {
+    background: #f0c19d;
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+}
+
+.productCheckout_delivery{
+    margin-left: 120px;
+    font-size: 15px;
+}
