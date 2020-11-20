@@ -5,7 +5,7 @@ const productRouter = require("./routes/ProductRoutes")
 const mongoose = require("mongoose")
 const cors = require('cors');
 const session = require("express-session");
-const MongoStore= require("connect-mongo")(session);
+// const MongoStore= require("connect-mongo")(session);
 const passport = require("passport");
 
 
@@ -13,7 +13,7 @@ const passport = require("passport");
 
 
 require('dotenv').config();
-require("./AuthConfirm")(passport)
+// require("./AuthConfirm")(passport)
 const app = express();
 
 const port = process.env.PORT || 9000;
@@ -35,17 +35,17 @@ mongoose.connection.once("open",()=>{
     console.log("mongodb connected")
 })
 //express-session middleware
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: mongoose.connection})
-}));
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new MongoStore({mongooseConnection: mongoose.connection})
+// }));
 
 
 //passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 

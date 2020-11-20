@@ -2,8 +2,13 @@ const express = require("express");
 const router = express.Router();
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const {ensureAuth} = require("../Auth")
 
 
+router.get("/protect",ensureAuth,(req,res)=>{
+    res.send("hello")
+})
 //get all the users
 router.get("/",(req,res)=>{
     User.find((err,data)=>{
@@ -27,12 +32,20 @@ router.post("/signin",(req,res)=>{
             if(!user){
                 return res.status(422).json({error: "invalid email"})
             }
-            bcrypt.compare(password,user.password,(match)=>{
-                if(match){
-                    res.json({message: "Succesfully sign in"})
+            bcrypt.compare(password,user.password)
+                .then(match=>{
+                    if(match){
+
+                    const token = jwt.sign({_id:user._id}, "secretkey")
+                        //give bavk token key
+                        res.json({
+                            token: token
+                        });
+                        return res.status(201).json({message: "Succesfully sign in"})
                 }
                 else{
-                    return res.status(422).json({error: "invalid email or password"})
+                    console.log(user)
+                    return res.status(500).json({error: "invalid email or password"})
                 }
 
             }).catch(err=>{
@@ -53,11 +66,10 @@ router.get("/:id",(req,res)=>{
 //user register
 router.post("/register",(req,res)=>{
     const {email} = req.body
-    let errors=[]
     //if user exist
     User.findOne({email:email}).then(user=>{
         if(user){
-            console.log("user exist")
+            return res.status(500).json({error: "Email already exist"})
         }
         const {name, email, password, password1, date} = req.body;
         bcrypt.genSalt(10, (err, salt) => bcrypt.hash(password, salt, (err, hash) => {

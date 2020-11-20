@@ -21,10 +21,10 @@ const addressSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    user:{
+    user:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
+    }],
     product:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
