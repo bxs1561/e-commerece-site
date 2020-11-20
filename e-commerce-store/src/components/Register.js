@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import "./Register.css";
 import axios from "./axios"
+import FlashMessage from 'react-flash-message'
+
 
 function Register() {
     const [email, setEmail] = useState('');
@@ -8,8 +10,20 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState("");
     const[date, setDate] = useState(new Date())
+//     const [errors, setErrors] = useState({});
+//     const errors = [];
+//     if (email.length === 0) {
+//         errors.push("email can't be empty");
+//     }
+//     if(password.length===0){
+//         errors.push("password can't be empty");
+//
+//     }
+//     historys.push("/game-page")
+// }
 
-    const handleSubmit=async (e)=>{
+
+const handleSubmit=async (e)=>{
         e.preventDefault();
         const user={
             name: name,
@@ -17,6 +31,7 @@ function Register() {
             password: password,
             date: Date.now()
         }
+
         await axios.post("users/register", user);
         setName("");
         setEmail("");

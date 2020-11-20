@@ -1,7 +1,10 @@
 import React from "react";
 import "./Login.css"
+import {useStateValue} from "../ReactContextApi/StateProvider";
 
 function Login() {
+    const [{}, dispatch] = useStateValue();
+
     return(
         <div className="login">
 
