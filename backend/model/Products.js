@@ -9,6 +9,10 @@ const productSchema = mongoose.Schema({
         type: Number,
         require: true
     }
+    // image:{
+    //     url: String,
+    //     required: true
+    // }
     // user:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "User",

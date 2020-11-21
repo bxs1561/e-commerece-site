@@ -22,7 +22,6 @@ const stripePromise = loadStripe("")
 function App() {
   return (
     <div className="App">
-      <Header/>
       <Router>
           <Switch>
               <Route path="/login">
@@ -32,12 +31,15 @@ function App() {
                   <Register/>
               </Route>
               <Route path="/product">
+                  <Header/>
                   <ProductList/>
               </Route>
               <Route path="/checkout">
+                  <Header/>
                   <Checkout/>
               </Route>
               <Route path="/">
+                  <Header/>
                   <ProductList/>
               </Route>
           </Switch>

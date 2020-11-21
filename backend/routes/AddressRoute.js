@@ -11,24 +11,32 @@ router.get("/address",(req,res)=>{
         if (err) {
             res.status(500).send(err)
         } else {
-            res.status(200).send(data)
+            res.status(200).send({Address:data})
         }
-    }).populate("user").populate("product").exec()
+    }).populate("user").populate("product", "_id").exec()
+    //above for product it will only show id and name of product not all
 })
 
 
 router.post("/address",(req,res)=>{
     const {address,city,state,zipCode,phone} = req.body;
-    // req.body.user = req.user.id
-
-    Address.create(req.body, (err, data) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            res.status(201).send(`new message created: \n ${data}`)
-        }
+    if(!address || !city || !state || !zipCode || !phone){
+        return res.status(500).json({error: "Please fill in the fields"})
+    }
+    //not store passwords with user
+    // req.user.password = undefined
+    const newAddress = new Address({
+        address,
+        city,
+        state,
+        zipCode,
+        phone,
+        user: req.user
     })
-    console.log(req.body)
+    newAddress.save().then(address=>{
+        res.json({Address:address})
+    })
+
 
 });
 

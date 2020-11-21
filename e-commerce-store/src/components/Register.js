@@ -1,45 +1,50 @@
 import React, {useState} from "react";
 import "./Register.css";
 import axios from "./axios"
-import FlashMessage from 'react-flash-message'
+import {toast } from 'react-toastify';
+import M from "materialize-css"
+import 'react-toastify/dist/ReactToastify.css';
+import {Link, useHistory} from "react-router-dom";
+
+toast.configure()
 
 
 function Register() {
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPass, setConfirmPass] = useState("");
     const[date, setDate] = useState(new Date())
-//     const [errors, setErrors] = useState({});
-//     const errors = [];
-//     if (email.length === 0) {
-//         errors.push("email can't be empty");
-//     }
-//     if(password.length===0){
-//         errors.push("password can't be empty");
-//
-//     }
-//     historys.push("/game-page")
-// }
-
-
-const handleSubmit=async (e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
-        const user={
+        let user={
             name: name,
             email: email,
             password: password,
             date: Date.now()
         }
 
-        await axios.post("users/register", user);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPass("")
+
+            await axios.post("users/register", user, {
+                    headers: {
+                        "accept": "application/json"
+                    }
+                }
+            ).then(res => {
+                history.push("/product")
+
+                // console.log(res)
+            }).catch(err => (
+                toast.error(err.response?.data?.error, {
+                    position: "top-center",
+                    autoClose: false,
+                })
+            ))
+            // setName("");
+            // setEmail("");
+            setPassword("");
 
     };
-
     return(
         <div className="register">
             <div className="register_container">
@@ -51,13 +56,15 @@ const handleSubmit=async (e)=>{
                     <input type="text" placeholder="Email address"  value={email} onChange={event => setEmail(event.target.value)}/>
                     <h5>Password</h5>
                     <input type="password"  placeholder="created password" value={password} onChange={event => setPassword(event.target.value)}/>
-                    <h5>Password</h5>
-                    <input type="password"  placeholder="confirmed password" value={confirmPass} onChange={event => setConfirmPass(event.target.value)} />
+                    {/*<h5>Password</h5>*/}
+                    {/*<input type="password"  placeholder="confirmed password" value={confirmPass} onChange={event => setConfirmPass(event.target.value)} />*/}
                     <button className='login_registerButton' type="submit" onClick={handleSubmit}>Register</button>
-
                 </form>
                 <h5>Already have an account?</h5>
-                <button type="submit"  className="login_signInButton">Sign In</button>
+                <Link to="/login">
+                    <button type="submit"  className="login_signInButton">Sign In</button>
+                </Link>
+
             </div>
         </div>
     )

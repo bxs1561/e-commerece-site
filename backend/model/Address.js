@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const{object}= mongoose.Schema.Types
 
 const addressSchema = mongoose.Schema({
     address: {
@@ -21,14 +22,14 @@ const addressSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    user:[{
+    user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    }],
-    product:[{
+    },
+    product:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
-    }]
+    }
 })
 const Address = mongoose.model("Address", addressSchema);
 module.exports = Address;

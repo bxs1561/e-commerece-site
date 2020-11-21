@@ -5,13 +5,24 @@ import SearchIcon from '@material-ui/icons/Search';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import Button from "@material-ui/core/Button/Button";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
 
 function Header() {
     return(
         <div className="header">
+            <Link to="/">
+
             <div className="header__logo">
                 <img src={L} alt="NepKart Logo"/>
             </div>
+            </Link>
+
             <div className="header__search">
                 <input className="header__inputSearch" type="text"/>
                 <SearchIcon className="searchIcon"/>

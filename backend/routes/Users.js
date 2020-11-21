@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const {ensureAuth} = require("../Auth")
 
 
-router.get("/protect",ensureAuth,(req,res)=>{
+router.get("/protect",(req,res)=>{
     res.send("hello")
 })
 //get all the users
@@ -18,40 +18,48 @@ router.get("/",(req,res)=>{
         else{
             res.status(200).send(data)
         }
-    }).populate("user").sort({createdAt: "desc"})
+    }).populate("user","name").sort({createdAt: "desc"})
 
 });
 
 router.post("/signin",(req,res)=>{
     const {email, password} = req.body;
+
     if(!email || !password){
-        res.status(422).json({error:"Please fill in the email or password"})
+        res.status(500).json({error:"Please fill in the email or password"})
     }
-    User.findOne({email:email})
-        .then(user=>{
-            if(!user){
-                return res.status(422).json({error: "invalid email"})
-            }
-            bcrypt.compare(password,user.password)
-                .then(match=>{
-                    if(match){
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+        return res.status(500).json({error: "invalid email"})
+    }
+    else {
 
-                    const token = jwt.sign({_id:user._id}, "secretkey")
-                        //give bavk token key
-                        res.json({
-                            token: token
-                        });
-                        return res.status(201).json({message: "Succesfully sign in"})
+        User.findOne({email: email})
+            .then(user => {
+                if (!user) {
+                    return res.status(500).json({error: "email does not exist "})
                 }
-                else{
-                    console.log(user)
-                    return res.status(500).json({error: "invalid email or password"})
-                }
+                bcrypt.compare(password, user.password)
+                    .then(match => {
+                        if (match) {
 
-            }).catch(err=>{
-                console.log(err)
+                            const token = jwt.sign({_id: user._id}, "secretkey")
+                            //give bavk token key
+                            //send user id, name and email to front client
+                            const{_id,name,email}= user
+                            res.json({
+                                token: token,
+                                user: {_id,name,email}
+                            });
+                            // return res.status(201).json({message: "Succesfully sign in"})
+                        } else {
+                            // console.log(user)
+                            return res.status(500).json({error: "invalid email or password"})
+                        }
+
+
+                })
             })
-    })
+    }
 })
 
 
@@ -65,24 +73,33 @@ router.get("/:id",(req,res)=>{
 
 //user register
 router.post("/register",(req,res)=>{
-    const {email} = req.body
-    //if user exist
-    User.findOne({email:email}).then(user=>{
-        if(user){
-            return res.status(500).json({error: "Email already exist"})
-        }
-        const {name, email, password, password1, date} = req.body;
-        bcrypt.genSalt(10, (err, salt) => bcrypt.hash(password, salt, (err, hash) => {
-            req.body.password = hash
-            User.create(req.body, (err, data) => {
-                if (err) {
-                    res.status(500).send(err)
-                } else {
-                    res.status(201).send(data)
-                }
-            })
-        }))
-    })
+    const {email, name,password} = req.body
+    if(!email || !name || !password){
+        return res.status(500).json({error: "please fill in all the fields"})
+    }
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+        return res.status(500).json({error: "invalid email"})
+    }
+    else {
+
+        //if user exist
+        User.findOne({email: email}).then(user => {
+            if (user) {
+                return res.status(500).json({error: "Email already exist"})
+            }
+            // const {name, email, password, password1, date} = req.body;
+            bcrypt.genSalt(10, (err, salt) => bcrypt.hash(password, salt, (err, hash) => {
+                req.body.password = hash
+                User.create(req.body, (err, data) => {
+                    if (err) {
+                        return res.status(500).send(err)
+                    } else {
+                        return res.status(201).json({User: data})
+                    }
+                })
+            }))
+        })
+    }
 });
 
 module.exports=router
