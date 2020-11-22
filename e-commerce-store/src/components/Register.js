@@ -31,7 +31,7 @@ function Register() {
                     }
                 }
             ).then(res => {
-                history.push("/product")
+                history.push("/login")
 
                 // console.log(res)
             }).catch(err => (

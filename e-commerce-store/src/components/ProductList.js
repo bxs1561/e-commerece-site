@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./ProductList.css"
 import Products from "./Products";
 import Ads from "../picture/5deec9de42fc0401.jpg"
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Adsq from "../picture/ads.jpg"
+import axios from "./axios"
 function ProductList() {
     const image0=Ads
     const image1= Adsq
     // const image1="https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/Minerva-Holiday-2020-GW-HeroDesktop_x2_3000x1200_Plus_V03._CB402929219_.jpg"
     const[image,setImage] = useState([image0,image1])
     const [count, setCount] = useState(0);
+    const[product, setProduct] = useState([])
 
     const next=()=>{
        if(image.length-1===count){
@@ -20,7 +22,14 @@ function ProductList() {
            setCount(count+1)
        }
     }
-    console.log(count)
+    useEffect(()=>{
+        axios.get("/product",{
+            "Authorization": "Bearer"+localStorage.getItem("jwt")
+        }).then(result=>{
+            setProduct(result.data)
+
+        })
+    },[])
     return(
         <div className="productList">
             <div className="product_container">
@@ -39,44 +48,47 @@ function ProductList() {
                 <br/>
 
                 <div className="home_row">
+                    {/*{product.map(products=>(*/}
+                        <Products
+                            id={product[0]?._id}
+                            title={product[0]?.title}
+                            price={product[0]?.price}
+                            image={product[0]?.image}
+                        />
                     <Products
-                        id="12321341"
-                        title="The Lean Startup: How Constant Innovation Creates Radically Successful Businesses Paperback"
-                        price={11.96}
-                        image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
+                        id={product[1]?._id}
+                        title={product[1]?.title}
+                        price={product[1]?.price}
+                        image={product[1]?.image}
                     />
                     <Products
-                        id="49538094"
-                        title="Kenwood kMix Stand Mixer for Baking, Stylish Kitchen Mixer with K-beater, Dough Hook and Whisk, 5 Litre Glass Bowl"
-                        price={239.0}
-                        image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
+                        id={product[2]?._id}
+                        title={product[2]?.title}
+                        price={product[2]?.price}
+                        image={product[2]?.image}
                     />
                     <Products
-                        id="49538094"
-                        title="Kenwood kMix Stand Mixer for Baking, Stylish Kitchen Mixer with K-beater, Dough Hook and Whisk, 5 Litre Glass Bowl"
-                        price={239.0}
-                        image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
+                        id={product[3]?._id}
+                        title={product[3]?.title}
+                        price={product[3]?.price}
+                        image={product[3]?.image}
                     />
-                    <Products
-                        id="12321341"
-                        title="The Lean Startup: How Constant Innovation Creates Radically Successful Businesses Paperback"
-                        price={11.96}
-                        image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-                    />
-
                 </div>
+
+
+
                 <div className="home_row">
                     <Products
-                        id="12321341"
-                        title="The Lean Startup: How Constant Innovation Creates Radically Successful Businesses Paperback"
-                        price={11.96}
-                        image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
+                        id={product[4]?._id}
+                        title={product[4]?.title}
+                        price={product[4]?.price}
+                        image={product[4]?.image}
                     />
                     <Products
-                        id="49538094"
-                        title="Kenwood kMix Stand Mixer for Baking, Stylish Kitchen Mixer with K-beater, Dough Hook and Whisk, 5 Litre Glass Bowl"
-                        price={239.0}
-                        image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
+                        id={product[5]?._id}
+                        title={product[5]?.title}
+                        price={product[5]?.price}
+                        image={product[5]?.image}
                     />
                 </div>
 

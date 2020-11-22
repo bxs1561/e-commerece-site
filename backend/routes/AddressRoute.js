@@ -3,7 +3,6 @@ const router = express.Router();
 const Address = require("../model/Address");
 
 
-
 //get all the address of the user
 router.get("/address",(req,res)=>{
 
@@ -14,6 +13,7 @@ router.get("/address",(req,res)=>{
             res.status(200).send({Address:data})
         }
     }).populate("user").populate("product", "_id").exec()
+    console.log(req.user)
     //above for product it will only show id and name of product not all
 })
 
@@ -31,11 +31,14 @@ router.post("/address",(req,res)=>{
         state,
         zipCode,
         phone,
-        user: req.user
+        user: req.user,
+        product: req.product
+
     })
     newAddress.save().then(address=>{
         res.json({Address:address})
     })
+    console.log(req.user)
 
 
 });

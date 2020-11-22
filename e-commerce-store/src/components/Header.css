@@ -86,7 +86,9 @@
     color: white;
     cursor: pointer;
 }
+.header_basketCount{
+    margin-left: 10px;
+    margin-right: 10px;
 
-/*.header__search>input{*/
-/*    outline-width: 0;*/
-/*}*/
+}
+

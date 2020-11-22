@@ -1,11 +1,25 @@
 import React from "react";
 import "./Products.css"
+import {useStateValue} from "../ReactContextApi/StateProvider";
+import {actionTypes} from "../ReactContextApi/reducer";
 
 
-function Products({id,title,image,price,rating}) {
+function Products({id,title,image,price}) {
+    const [{cart}, dispatch] = useStateValue();
+
+    //add item to basket
     const addToBasket=()=>{
-        console.log("add")
+        dispatch({
+            type: actionTypes.ADD_TO_CART,
+            item:{
+                id: id,
+                title: title,
+                image: image,
+                price: price
+            }
+        })
     }
+    console.log(cart)
 
 
     return(

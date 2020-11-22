@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import './App.css';
 import Header from "./components/Header";
 import ProductList from "./components/ProductList";
@@ -13,36 +13,68 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useHistory,
     Link
 } from "react-router-dom";
 import Total from "./components/Total";
+import {useStateValue} from "./ReactContextApi/StateProvider";
+import {actionTypes} from "./ReactContextApi/reducer";
 
 
 const stripePromise = loadStripe("")
+function ContextReactUser() {
+    const history = useHistory()
+    const [{state}, dispatch] = useStateValue();
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        // console.log(typeof user, user)
+        if (user) {
+            dispatch({
+                type: actionTypes.SET_USER,
+                user: user,
+            })
+            history.push("/")
+        } else {
+            dispatch({
+                type: actionTypes.SET_USER,
+                user: null,
+            });
+
+            // history.push("/")
+        }
+    }, [])
+    return(
+        <Switch>
+            <Route path="/login">
+                <Login/>
+            </Route>
+            <Route path="/register">
+                <Register/>
+            </Route>
+            <Route path="/product">
+                <Header/>
+                <ProductList/>
+            </Route>
+            <Route path="/checkout">
+                <Header/>
+                <Checkout/>
+            </Route>
+            <Route path="/">
+                <Header/>
+                <ProductList/>
+            </Route>
+        </Switch>
+    )
+
+
+}
+
 function App() {
-  return (
+    return (
     <div className="App">
       <Router>
-          <Switch>
-              <Route path="/login">
-                  <Login/>
-              </Route>
-              <Route path="/register">
-                  <Register/>
-              </Route>
-              <Route path="/product">
-                  <Header/>
-                  <ProductList/>
-              </Route>
-              <Route path="/checkout">
-                  <Header/>
-                  <Checkout/>
-              </Route>
-              <Route path="/">
-                  <Header/>
-                  <ProductList/>
-              </Route>
-          </Switch>
+          {/*<Header/>*/}
+          <ContextReactUser/>
       </Router>
     </div>
 

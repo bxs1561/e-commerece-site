@@ -9,11 +9,39 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useHistory,
     Link
 } from "react-router-dom";
+import {useStateValue} from "../ReactContextApi/StateProvider";
+import {actionTypes} from "../ReactContextApi/reducer";
 
 
 function Header() {
+    const [{user, cart},dispatch] = useStateValue()
+    const history = useHistory()
+
+    const logout=()=>{
+        localStorage.clear()
+        dispatch({
+            type: actionTypes.SET_USER,
+            user: null
+        })
+        history.push("/")
+    }
+    const log=()=>{
+        if(user){
+            return(
+                <div className="header_option" style={{paddingBottom: 20}}>
+                    {/*//goes to user info*/}
+                    <PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>
+                    <span className="header_optionTwo">
+                    {user?.name}
+                </span>
+                </div>
+            )
+        }
+    }
+
     return(
         <div className="header">
             <Link to="/">
@@ -28,20 +56,54 @@ function Header() {
                 <SearchIcon className="searchIcon"/>
             </div>
             <div className="header__login">
-                <PersonOutlineOutlinedIcon className="login__avatar"/>
+                    <div className="header_option" style={{paddingBottom: 20}}>
+                        {/*go to the user information*/}
+                        {user ? (
+                            <PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>
+                        ) : (
+                            ""
+                        )}
+
+                        {/*<PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>*/}
                 <span className="header_optionTwo">
-                        Login
+                    {!user ? "": user.name}
                 </span>
+                        <Link to={!user && "/login"} style={{ textDecoration: 'none' }}>
+
+                    <span className="header_optionTwo" onClick={logout}>
+                        {user? "Logout" : "Login"}
+
+                    </span>
+                        </Link>
+                        <Link to="/register" style={{ textDecoration: 'none' }}>
+                        <span className="header_optionTwo" onClick={logout}>
+                        {!user && "Register"}
+
+                    </span>
+                        </Link>
+
+                    </div>
                 <div className="header__option">
-                    <span className="header_optionOne">
-                        Orders
+                    <span className="header_optionTwo">
+                        {/*{user && "/order"}*/}
+                        {user? "Orders": ""}
                     </span>
                 </div>
-            </div>
-            <div className="header_Basket">
-                <ShoppingCartIcon/>
+            {/*</div>*/}
+                <Link to={user && "/checkout"}>
+
+                <div className="header_Basket">
+                {user?(
+                    <ShoppingCartIcon/>
+
+                ):(
+                    ""
+                )}
                 <span className="header_optionLineTwo header_basketCount">
+                    {cart.length}
                     </span>
+            </div>
+                </Link>
             </div>
         </div>
         )

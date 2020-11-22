@@ -4,9 +4,11 @@ import {useStateValue} from "../ReactContextApi/StateProvider";
 import axios from "./axios"
 import {Link,useHistory} from "react-router-dom"
 import {toast} from "react-toastify";
+import {actionTypes} from "../ReactContextApi/reducer";
 
 function Login() {
     const history = useHistory();
+    const [{state}, dispatch] = useStateValue();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const loginHandle= (event)=>{
@@ -22,10 +24,14 @@ function Login() {
                 }
             }
         ).then(res => {
-            console.log(res)
+            // console.log(res)
              //store token and user data in local storage
             localStorage.setItem("jwt",res.data.token)
             localStorage.setItem("user", JSON.stringify(res.data.user))
+             dispatch({
+                 type: actionTypes.SET_USER,
+                 user: res.data.user
+             })
             history.push("/product")
 
             // console.log(res)
@@ -55,7 +61,9 @@ function Login() {
 
                 </form>
                 <h5>Don't have an account?</h5>
+                <Link to="/register">
                 <button type="submit" className='login_registerButton'>Register</button>
+                </Link>
 
 
             </div>

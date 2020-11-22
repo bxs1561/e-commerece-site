@@ -3,32 +3,46 @@ export const initialState={
     user:null
 }
 
-export const actionType={
+export const actionTypes={
     ADD_TO_CART: "ADD_TO_CART",
     SET_USER: "SET_USER",
     EMPTY_BASKET: "EMPTY_BASKET",
-    REMOVE_FROM_CART: "REMOVE_FROM_CART"
+    REMOVE_FROM_CART: "REMOVE_FROM_CART",
 }
 
+const reducers=(accum,current)=>{
+    return accum + current.price
+}
+export const totalCartAmount=(cart)=>(
+     cart?.reduce(reducers,0)
+)
+
+const subtract=(accum,current)=>{
+    return accum - current.price
+}
+
+export const minusCartAmount=(cart)=>(
+    cart?.reduce(subtract,0)
+)
 
 const reducer=(state, action)=>{
     switch (action.type) {
-        case actionType.ADD_TO_CART:
+        case actionTypes.ADD_TO_CART:
             return{
                 ...state,
                 cart: [...state.cart,action.item]
             }
-        case actionType.SET_USER:
+        case actionTypes.SET_USER:
             return {
                 ...state,
-                user: state.user
+                user: action.user
             }
-        case actionType.EMPTY_BASKET:
+        case actionTypes.EMPTY_BASKET:
             return {
                 ...state,
                 cart: []
             }
-        case actionType.REMOVE_FROM_CART:
+        case actionTypes.REMOVE_FROM_CART:
             const index=state.cart.findIndex((cartItem)=>cartItem.id===action.id)
             let newCart=[...state.cart];
 
@@ -43,6 +57,8 @@ const reducer=(state, action)=>{
                 ...state,
                 cart: newCart
             }
+        default:
+            return state
     }
 }
 export default reducer
