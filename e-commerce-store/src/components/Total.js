@@ -3,8 +3,9 @@ import "./Total.css";
 import CurrencyFormat from "react-currency-format";
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import {totalCartAmount} from "../ReactContextApi/reducer";
-
+import {useHistory} from "react-router-dom"
 function Total() {
+    const history = useHistory()
     const [{cart, user},dispatch]=useStateValue();
 
     return(
@@ -37,7 +38,7 @@ function Total() {
                 prefix={'$'}
                 decimalScale={2}
             />
-            <button>Proceed to Checkout</button>
+            <button onClick={event => history.push("/payment")}>Proceed to Checkout</button>
 
         </div>
             ):(

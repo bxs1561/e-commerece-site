@@ -19,7 +19,7 @@ function Products({id,title,image,price}) {
             }
         })
     }
-    console.log(cart)
+    // console.log(cart)
 
 
     return(

@@ -21,6 +21,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.10.15",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "stripe": "^8.125.0"
   }
 }

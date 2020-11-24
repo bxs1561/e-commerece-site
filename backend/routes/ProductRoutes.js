@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Product =require("../model/Products");
+const {ensureAuth} = require("../Auth")
+
 
 
 //get all the products
@@ -13,22 +15,26 @@ router.get("/",(req,res)=>{
             res.status(200).send(data)
         }
     })
+
 });
 
-//find product by name
-router.get("/:name",(req,res)=>{
-    Product.findOne({name: req.params.name},(err,data)=>{
-        if(err){
+//search product by id
+router.get("/:id",(req,res)=> {
+    Product.findById(req.params.id, (err, data) => {
+        if (err) {
             res.status(500).send(err)
         }
         else {
             res.status(200).send(data)
         }
     })
-});
+})
+
+
 
 //add product
 router.post("/add",(req,res)=>{
+    console.log(req.body._id)
     Product.create(req.body,(err,data)=>{
         if(err){
             res.status(500).send(err)
@@ -38,10 +44,8 @@ router.post("/add",(req,res)=>{
         }
     })
 });
-
-//search product by id
-router.get("/:id",(req,res)=>{
-    Product.findById(req.params.id,(err,data)=>{
+router.get("/products/:title",(req,res)=>{
+    Product.findOne({title: req.params.title},(err,data)=>{
         if(err){
             res.status(500).send(err)
         }
@@ -50,6 +54,8 @@ router.get("/:id",(req,res)=>{
         }
     })
 });
+
+
 
 
 module.exports = router

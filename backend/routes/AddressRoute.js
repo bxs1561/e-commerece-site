@@ -12,8 +12,8 @@ router.get("/address",(req,res)=>{
         } else {
             res.status(200).send({Address:data})
         }
-    }).populate("user").populate("product", "_id").exec()
-    console.log(req.user)
+    })
+    console.log(req.product)
     //above for product it will only show id and name of product not all
 })
 
@@ -25,14 +25,16 @@ router.post("/address",(req,res)=>{
     }
     //not store passwords with user
     // req.user.password = undefined
+    // req.body.user = req.user.id
+
     const newAddress = new Address({
         address,
         city,
         state,
         zipCode,
         phone,
-        user: req.user,
-        product: req.product
+        // user: req.user,
+        // product: req.product
 
     })
     newAddress.save().then(address=>{
@@ -52,7 +54,7 @@ router.get("/:id",(req,res)=> {
         else {
             res.status(200).send(data)
         }
-    }).populate("user")
+    })
 })
 
 

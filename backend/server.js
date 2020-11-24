@@ -2,12 +2,11 @@ const express = require("express");
 const usersRouter = require("./routes/Users")
 const addressRouter= require("./routes/AddressRoute")
 const productRouter = require("./routes/ProductRoutes")
+const paymentRouter = require("./routes/PaymentRoute")
+const orderRouter = require("./routes/OrdersRoutes")
 const mongoose = require("mongoose")
-const cors = require('cors');
-const session = require("express-session");
-// const MongoStore= require("connect-mongo")(session);
-const passport = require("passport");
 
+const cors = require('cors');
 
 
 
@@ -34,24 +33,13 @@ mongoose.connect(connection_url,{
 mongoose.connection.once("open",()=>{
     console.log("mongodb connected")
 })
-//express-session middleware
-// app.use(session({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new MongoStore({mongooseConnection: mongoose.connection})
-// }));
-
-
-//passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 
 
 app.use('/users', usersRouter);
 app.use("/user", addressRouter);
 app.use("/product", productRouter);
+app.use("/payment", paymentRouter)
+app.use("/orders",orderRouter)
 
 
 

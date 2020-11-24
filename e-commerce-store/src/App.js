@@ -20,7 +20,6 @@ import Total from "./components/Total";
 import {useStateValue} from "./ReactContextApi/StateProvider";
 import {actionTypes} from "./ReactContextApi/reducer";
 
-
 const stripePromise = loadStripe("")
 function ContextReactUser() {
     const history = useHistory()
@@ -58,6 +57,12 @@ function ContextReactUser() {
             <Route path="/checkout">
                 <Header/>
                 <Checkout/>
+            </Route>
+            <Route path="/payment">
+                <Header/>
+                <Elements stripe={stripePromise}>
+                    <Payment/>
+                </Elements>
             </Route>
             <Route path="/">
                 <Header/>

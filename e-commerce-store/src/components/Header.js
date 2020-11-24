@@ -100,7 +100,8 @@ function Header() {
                     ""
                 )}
                 <span className="header_optionLineTwo header_basketCount">
-                    {cart.length}
+                    {user && cart.length}
+                    {/*{cart.length}*/}
                     </span>
             </div>
                 </Link>
