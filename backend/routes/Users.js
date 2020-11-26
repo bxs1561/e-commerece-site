@@ -26,7 +26,7 @@ router.post("/signin",(req,res)=>{
     const {email, password} = req.body;
 
     if(!email || !password){
-        res.status(500).json({error:"Please fill in the email or password"})
+        return res.status(500).json({error:"Please fill in the email or password"})
     }
     if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
         return res.status(500).json({error: "invalid email"})
@@ -46,7 +46,7 @@ router.post("/signin",(req,res)=>{
                             //give bavk token key
                             //send user id, name and email to front client
                             const{_id,name,email}= user
-                            res.json({
+                             res.json({
                                 token: token,
                                 user: {_id,name,email}
                             });

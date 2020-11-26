@@ -1,0 +1,114 @@
+
+.displayAddress{
+    padding: 40px;
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    /*border: 1px solid lightgray;*/
+
+}
+
+.displayAddress_container{
+    /*border: 1px solid lightgray;*/
+    padding: 5px;
+    width: 50%;
+
+
+}
+
+.show_address{
+    padding: 20px;
+    border: 1px solid lightgray;
+
+
+}
+.show_address>h5{
+    padding: 5px;
+
+}
+
+.City{
+    padding: 20px;
+    border: 1px solid lightgray;
+
+}
+.City>h5{
+    padding: 5px;
+}
+.state{
+    padding: 20px;
+    border: 1px solid lightgray;
+
+
+}
+.state>h5{
+    padding: 5px;
+
+}
+.zipCode{
+    padding: 20px;
+    border: 1px solid lightgray;
+
+
+}
+.zipCode>h5{
+    padding: 5px;
+
+}
+.phoneNumber{
+    padding: 20px;
+    border: 1px solid lightgray;
+
+
+}
+.phoneNumber>h5{
+    padding: 5px;
+
+}
+.displayAddress_container>hr{
+    border: 1px solid lightgray;
+}
+
+.new_addressButton{
+    align-items: center;
+    justify-content: space-between;
+    margin: 35px;
+    color: #fff;
+    background-color: #df691a;
+    border-radius: 999px;
+    width: 30%;
+    height: 39px;
+    margin-top: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    /*margin-left: 20%;*/
+}
+.new_addressButton:hover{
+    background-color: rgb(290, 150, 90);
+}
+.new_addressButton:focus{
+    outline-width: 0;
+}
+.addressEditButton{
+    align-items: center;
+    justify-content: space-between;
+    margin: 35px;
+    color: #fff;
+    background-color: #df691a;
+    border-radius: 999px;
+    width: 30%;
+    height: 39px;
+    margin-top: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+}
+.addressEditButton:hover{
+    background-color: rgb(290, 150, 90);
+}
+.addressEditButton:focus {
+    outline-width: 0;
+}

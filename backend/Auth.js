@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
 const User = require("./model/User")
 const Address = require("./model/Address")
-const Product = require("./model/Products")
-const Order = require("./model/Orders")
+const Product = require("./model/Product")
+const Order = require("./model/Order")
 
 //protected route
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
                 next()
             })
             Product.findById(_id).then(productData=>{
-                req.product = productData
+                req.products = productData
                 next()
             })
             // Address.findById(_id).then(addressData=>{

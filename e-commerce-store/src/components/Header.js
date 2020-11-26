@@ -57,6 +57,7 @@ function Header() {
             </div>
             <div className="header__login">
                     <div className="header_option" style={{paddingBottom: 20}}>
+                        <Link to={user && "/user/address"} style={{textDecoration: "none"}}>
                         {/*go to the user information*/}
                         {user ? (
                             <PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>
@@ -64,10 +65,13 @@ function Header() {
                             ""
                         )}
 
+
                         {/*<PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>*/}
                 <span className="header_optionTwo">
                     {!user ? "": user.name}
                 </span>
+                        </Link>
+
                         <Link to={!user && "/login"} style={{ textDecoration: 'none' }}>
 
                     <span className="header_optionTwo" onClick={logout}>

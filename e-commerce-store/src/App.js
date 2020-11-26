@@ -19,8 +19,10 @@ import {
 import Total from "./components/Total";
 import {useStateValue} from "./ReactContextApi/StateProvider";
 import {actionTypes} from "./ReactContextApi/reducer";
+import Address from "./components/Address";
+import DisplayAddress from "./components/DisplayAddress";
 
-const stripePromise = loadStripe("")
+const stripePromise = loadStripe(publish_key)
 function ContextReactUser() {
     const history = useHistory()
     const [{state}, dispatch] = useStateValue();
@@ -44,6 +46,14 @@ function ContextReactUser() {
     }, [])
     return(
         <Switch>
+            <Route path="/user/address">
+                <Header/>
+                <DisplayAddress/>
+            </Route>
+            <Route path="/user/new/address">
+                <Header/>
+                <Address/>
+            </Route>
             <Route path="/login">
                 <Login/>
             </Route>
@@ -68,6 +78,7 @@ function ContextReactUser() {
                 <Header/>
                 <ProductList/>
             </Route>
+
         </Switch>
     )
 
@@ -78,7 +89,6 @@ function App() {
     return (
     <div className="App">
       <Router>
-          {/*<Header/>*/}
           <ContextReactUser/>
       </Router>
     </div>

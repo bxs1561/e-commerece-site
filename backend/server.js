@@ -23,6 +23,7 @@ app.get("/",(req,res)=>{
     res.send("Hello")
 })
 
+
 //database
 const connection_url = process.env.URI;
 mongoose.connect(connection_url,{

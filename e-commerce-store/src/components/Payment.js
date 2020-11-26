@@ -7,6 +7,7 @@ import {totalCartAmount} from "../ReactContextApi/reducer";
 import ProductCheckout from "./ProductCheckout";
 import {Link, useHistory} from "react-router-dom";
 import CurrencyFormat from "react-currency-format"
+import Address from "./Address";
 
 
 
@@ -15,7 +16,6 @@ function Payment() {
     const stripe = useStripe()
     const elements = useElements()
     const history = useHistory()
-    // const history = useHistory()
 
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState("");
@@ -23,10 +23,8 @@ function Payment() {
     const [disabled, setDisabled] = useState(true);
     const [clientSecret, setClientSecret] = useState(true);
 
-    // const [id, setId] = useState([])
-    const [data, setData] = useState([])
-    const [image, setImage] = useState("")
-    const [price, setPrice] = useState("")
+    const [id, setId] = useState([])
+
 
 
 
@@ -38,6 +36,9 @@ function Payment() {
         }
         clientSecrets()
     },[cart])
+
+
+    //post request the order from cart
     const orderPost=(id)=>{
         const order={
             user,
@@ -49,23 +50,22 @@ function Payment() {
                          "Authorization": "Bearer "+localStorage.getItem("jwt")
                      }
                  })
+        console.log(order)
     }
 
-    useEffect(()=>{
-        cart.map(doc=>{
-            orderPost(doc.id)
 
-        })
+    // useEffect(()=>{
+    //     cart.map((doc)=>{
+    //         orderPost(doc.id)
+    //
+    //     })
+    //
+    // },[])
 
-    },[cart])
-
-    // console.log(data)
 
 
 
     const handleSubmit=async (event)=>{
-
-
         event.preventDefault();
         setProcessing(true);
 
@@ -74,23 +74,24 @@ function Payment() {
                 card: elements.getElement(CardElement)
             }
         }).then(({ paymentIntent }) => {
-
+            cart.map((doc)=>{
+                orderPost(doc.id)
+            })
             setSucceeded(true);
             setError(null)
             setProcessing(false)
             history.push('/')
         })
+        dispatch({
+            type: 'EMPTY_BASKET'
+        })
+
     }
     const handleChange=(event)=>{
         setDisabled(event.empty);
         setError(event.error ? event.error.message : "");
 
     }
-    // cart.map(dat=>{
-    //     console.log(dat.id)
-    // })
-
-    // console.log(cart.item)
 
 
     return(
@@ -152,7 +153,7 @@ function Payment() {
                                     thousandSeparator={true}
                                     prefix={"$"}
                                 />
-                                <button disabled={processing || disabled || succeeded}>
+                                <button  disabled={processing || disabled || succeeded}>
                                     <span>{processing ? <p>Processing</p>:"Buy Now"}</span>
                                 </button>
                             </div>
@@ -164,10 +165,10 @@ function Payment() {
 
                 </div>
             </div>
-            {cart.map(doc=>(
-                console.log(doc.id)
-                // <button onClick={orderPost(doc.id)}>Order</button>
-                ))}
+            {/*{cart.map(doc=>(*/}
+            {/*    console.log(doc.id)*/}
+            {/*    // <button onClick={orderPost(doc.id)}>Order</button>*/}
+            {/*    ))}*/}
 
         </div>
     )

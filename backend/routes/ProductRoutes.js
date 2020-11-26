@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Product =require("../model/Products");
+const Product =require("../model/Product");
 const {ensureAuth} = require("../Auth")
 
 
@@ -14,7 +14,7 @@ router.get("/",(req,res)=>{
         else {
             res.status(200).send(data)
         }
-    })
+    }).populate("product")
 
 });
 
@@ -37,10 +37,10 @@ router.post("/add",(req,res)=>{
     console.log(req.body._id)
     Product.create(req.body,(err,data)=>{
         if(err){
-            res.status(500).send(err)
+            return res.status(500).send(err)
         }
         else{
-            res.status(201).send(data)
+            return res.status(201).send(data)
         }
     })
 });

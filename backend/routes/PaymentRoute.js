@@ -1,5 +1,5 @@
 const express = require("express")
-const stripe = require("stripe")()
+const stripe = require("stripe")(secretKey)
 const router = express.Router();
 const cors = require('cors');
 
@@ -12,7 +12,7 @@ router.post("/create/:total",async (req,res)=>{
         amount: total,
         currency: "usd",
     })
-    res.status(201).send({
+     res.status(201).send({
         clientSecret: payment.client_secret,
     });
 })

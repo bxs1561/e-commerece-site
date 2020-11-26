@@ -21,17 +21,11 @@ const addressSchema = mongoose.Schema({
     phone:{
         type: String,
         required: true
+    },
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     }
-    // user:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    // },
-    // product:[{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Product",
-    //     required: true
-    //
-    // }]
 })
 const Address = mongoose.model("Address", addressSchema);
 module.exports = Address;
