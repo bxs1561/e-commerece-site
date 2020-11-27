@@ -22,12 +22,10 @@ import {actionTypes} from "./ReactContextApi/reducer";
 import Address from "./components/Address";
 import DisplayAddress from "./components/DisplayAddress";
 import Edit from "./components/Edit";
-import dotenv from 'dotenv'
-dotenv.config()
 
-const publish_key=process.env.PUBLISH_KEY
 
-const stripePromise = loadStripe(publish_key)
+
+const stripePromise = loadStripe()
 function ContextReactUser() {
     const history = useHistory()
     const [{state}, dispatch] = useStateValue();
