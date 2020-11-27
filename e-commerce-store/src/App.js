@@ -21,6 +21,11 @@ import {useStateValue} from "./ReactContextApi/StateProvider";
 import {actionTypes} from "./ReactContextApi/reducer";
 import Address from "./components/Address";
 import DisplayAddress from "./components/DisplayAddress";
+import Edit from "./components/Edit";
+import dotenv from 'dotenv'
+dotenv.config()
+
+const publish_key=process.env.PUBLISH_KEY
 
 const stripePromise = loadStripe(publish_key)
 function ContextReactUser() {
@@ -53,6 +58,10 @@ function ContextReactUser() {
             <Route path="/user/new/address">
                 <Header/>
                 <Address/>
+            </Route>
+            <Route path="/user/edit/address">
+                <Header/>
+                <Edit/>
             </Route>
             <Route path="/login">
                 <Login/>

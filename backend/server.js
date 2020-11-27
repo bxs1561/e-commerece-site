@@ -11,7 +11,8 @@ const cors = require('cors');
 
 
 
-require('dotenv').config();
+require('dotenv').config()
+
 // require("./AuthConfirm")(passport)
 const app = express();
 
@@ -30,6 +31,7 @@ mongoose.connect(connection_url,{
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
 })
 mongoose.connection.once("open",()=>{
     console.log("mongodb connected")

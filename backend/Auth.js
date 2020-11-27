@@ -21,14 +21,14 @@ module.exports = {
                 req.user = userData
                 next()
             })
-            Order.findById(_id).then(orderData=>{
-                req.order = orderData
-                next()
-            })
-            Product.findById(_id).then(productData=>{
-                req.products = productData
-                next()
-            })
+            // Order.findById(_id).then(orderData=>{
+            //     req.order = orderData
+            //     next()
+            // })
+            // Product.findById(_id).then(productData=>{
+            //     req.products = productData
+            //     next()
+            // })
             // Address.findById(_id).then(addressData=>{
             //     req.address = addressData
             //     next()

@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Products.css"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import {actionTypes} from "../ReactContextApi/reducer";
+import axios from "./axios";
 
 
 function Products({id,title,image,price}) {
-    const [{cart}, dispatch] = useStateValue();
+    const [{cart, user, addr}, dispatch] = useStateValue();
 
     //add item to basket
     const addToBasket=()=>{
@@ -20,6 +21,18 @@ function Products({id,title,image,price}) {
         })
     }
     // console.log(cart)
+    const getUserData=()=>{
+        axios.get(`/user/user/${user?._id}`
+        ).then(result=>{
+            localStorage.setItem("Address", JSON.stringify(result.data.Address))
+        })
+    }
+
+    useEffect(()=>{
+        getUserData()
+
+    },[])
+
 
 
     return(

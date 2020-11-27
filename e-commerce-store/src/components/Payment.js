@@ -12,7 +12,7 @@ import Address from "./Address";
 
 
 function Payment() {
-    const [{cart, user}, dispatch] = useStateValue()
+    const [{cart, user, addr}, dispatch] = useStateValue()
     const stripe = useStripe()
     const elements = useElements()
     const history = useHistory()
@@ -23,7 +23,7 @@ function Payment() {
     const [disabled, setDisabled] = useState(true);
     const [clientSecret, setClientSecret] = useState(true);
 
-    const [id, setId] = useState([])
+    const [data, setData] = useState([])
 
 
 
@@ -38,6 +38,8 @@ function Payment() {
     },[cart])
 
 
+
+
     //post request the order from cart
     const orderPost=(id)=>{
         const order={
@@ -50,7 +52,6 @@ function Payment() {
                          "Authorization": "Bearer "+localStorage.getItem("jwt")
                      }
                  })
-        console.log(order)
     }
 
 
@@ -107,9 +108,18 @@ function Payment() {
                         <h3>Delivery Address</h3>
                     </div>
                     <div className="payment_address">
-                        <p>{user?.email}</p>
-                        <p>114 lysander dr</p>
-                        <p>Rochester, NY</p>
+                        {addr.map(address=>(
+                            <>
+                            <p>{user?.email}</p>
+                            <p>{address.addres}</p>
+                            <p>{address.City}, {address.State}</p>
+                            </>
+                        ))}
+
+
+
+                        {/*<p>114 lysander dr</p>*/}
+                        {/*<p>Rochester, NY</p>*/}
                     </div>
 
                 </div>

@@ -1,14 +1,33 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Checkout.css"
 import ProductCheckout from "./ProductCheckout";
 import Total from "./Total";
 import {useHistory} from "react-router-dom"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import {actionTypes} from "../ReactContextApi/reducer";
 
 function Checkout() {
-    const [{cart, user},dispatch]=useStateValue();
+    const [{cart, user, addr},dispatch]=useStateValue();
     const history = useHistory()
+
+    useEffect(()=> {
+        const address = JSON.parse(localStorage.getItem("Address"))
+        address.map(result => {
+            dispatch({
+                type: actionTypes.ADD_TO_ADDRESS,
+                item: {
+                    addres: result.address,
+                    City: result.city,
+                    State: result.state,
+                    Zip_Code: result.zipCode,
+                    Phone: result.phone,
+
+
+                }
+            })
+        })
+    },[])
 
     return(
         <>

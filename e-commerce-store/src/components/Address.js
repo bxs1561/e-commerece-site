@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import {actionTypes} from "../ReactContextApi/reducer";
 
 function Address() {
-    const[{user}, addresss,dispatch] = useStateValue()
+    const[{user, addr},dispatch] = useStateValue()
     const history = useHistory()
 
     const [address, setAddress] = useState("")
@@ -15,7 +15,6 @@ function Address() {
     const [state, setState] = useState("")
     const [zipCode, setZipCode] = useState("")
     const [phone, setPhone] = useState("")
-    const[data, setData] = useState([])
 
     const handleSubmitAddress=(event)=>{
         event.preventDefault();
@@ -33,7 +32,6 @@ function Address() {
                 "Authorization": "Bearer "+localStorage.getItem("jwt")
             }
         }).then(result=>{
-
             history.push("/")
         }).catch(err=>{
             toast.error(err.response?.data?.error, {
@@ -44,22 +42,6 @@ function Address() {
     })
 
     }
-
-    const getUser=()=>{
-        axios.get(`/user/user/${user?._id}`
-        ).then(usr=>{
-            setData(usr.data)
-        })
-
-    }
-
-    useEffect(()=>{
-        getUser()
-
-    },[])
-    console.log("user",data)
-
-    // console.log(user._id)
 
 
     return(

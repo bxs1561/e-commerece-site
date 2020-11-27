@@ -31,6 +31,7 @@ router.post("/address",ensureAuth,(req,res)=>{
     // req.user.password = undefined
     // req.body.user = req.user.id
     // User.findById(req.user.id).then(user=>{
+
         const newAddress = new Address({
             address,
             city,
@@ -69,6 +70,19 @@ router.get("/user/:userId",(req,res)=>{
         }
     }).populate("user")
 
+})
+
+
+//update address
+
+router.put("/edit/:usrId",(req,res)=>{
+    Address.findOneAndUpdate(req.params.id,req.body, {
+        new: true
+    }).then(result=>{
+        res.json(result)
+    }).catch(err=>{
+        res.json(err)
+    })
 })
 
 

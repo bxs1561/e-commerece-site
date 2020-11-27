@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Login.css"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import axios from "./axios"
@@ -8,7 +8,7 @@ import {actionTypes} from "../ReactContextApi/reducer";
 
 function Login() {
     const history = useHistory();
-    const [{state}, dispatch] = useStateValue();
+    const [{user ,addr}, dispatch] = useStateValue();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const loginHandle= (event)=>{
@@ -32,6 +32,7 @@ function Login() {
                  type: actionTypes.SET_USER,
                  user: res.data.user
              })
+
             history.push("/product")
 
             // console.log(res)
@@ -44,6 +45,8 @@ function Login() {
         ))
         setPassword('')
     }
+
+
 
     return(
         <div className="login">

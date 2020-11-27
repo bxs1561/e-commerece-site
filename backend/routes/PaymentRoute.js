@@ -1,9 +1,10 @@
 const express = require("express")
-const stripe = require("stripe")(secretKey)
+require('dotenv').config();
+const stripe = require("stripe")(process.env.SECRET_KEY);
 const router = express.Router();
 const cors = require('cors');
 
-require('dotenv').config();
+
 
 router.post("/create/:total",async (req,res)=>{
     const total = req.params.total

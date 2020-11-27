@@ -1,15 +1,15 @@
 export const initialState={
     cart:[],
+    addr: [],
     user:null,
-    addresss: [],
 }
 
 export const actionTypes={
     ADD_TO_CART: "ADD_TO_CART",
     SET_USER: "SET_USER",
+    ADD_TO_ADDRESS: "ADD_TO_ADDRESS",
     EMPTY_BASKET: "EMPTY_BASKET",
     REMOVE_FROM_CART: "REMOVE_FROM_CART",
-    ADD_ADDRESS: "ADD_ADDRESS"
 }
 
 const reducers=(accum,current)=>{
@@ -39,10 +39,11 @@ const reducer=(state, action)=>{
                 ...state,
                 user: action.user
             }
-        case actionTypes.ADD_ADDRESS:
+        case actionTypes.ADD_TO_ADDRESS:
             return {
                 ...state,
-                addresss:[...state.addresss,action.item]
+                addr: [...state.addr,action.item]
+
             }
         case actionTypes.EMPTY_BASKET:
             return {

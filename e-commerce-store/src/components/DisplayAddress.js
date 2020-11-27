@@ -3,10 +3,11 @@ import axios from "./axios"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import "./DisplayAddress.css"
 import {Link} from "react-router-dom";
+import {actionTypes} from "../ReactContextApi/reducer";
 
 
 function DisplayAddress() {
-    const[{user},dispatch] = useStateValue()
+    const[{user, addr},dispatch] = useStateValue()
     const[data, setData] = useState([])
 
     const getUser=()=>{
@@ -21,9 +22,9 @@ function DisplayAddress() {
         getUser()
 
     },[])
-    // data?.Address?.map(addr=>{
-    //     console.log(addr.address)
-    // })
+
+
+
 
     return(
         <div className="displayAddress">
@@ -66,7 +67,9 @@ function DisplayAddress() {
                 <Link to="/user/new/address">
                 <button className="new_addressButton">New Address</button>
                 </Link>
+                <Link to="/user/edit/address">
                 <button className="addressEditButton">Edit </button>
+                </Link>
             </div>
         </div>
 
