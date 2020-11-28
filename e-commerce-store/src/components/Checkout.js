@@ -39,12 +39,14 @@ function Checkout() {
                 Your Cart
             </h2>
                 {/*<div className="checkout_left">*/}
+
                 {cart.map(carts=>(
                     <ProductCheckout
                         id={carts?.id}
                         title={carts?.title}
                         price={carts?.price}
                         image={carts?.image}
+                        hideProduct={false}
                     />
                 ))}
             </div>

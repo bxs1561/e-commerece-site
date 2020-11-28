@@ -20,7 +20,7 @@ router.get("/",ensureAuth,(req,res)=>{
 
 });
 
-router.post("/signin",ensureAuth,(req,res)=>{
+router.post("/signin",(req,res)=>{
     const {email, password} = req.body;
 
     if(!email || !password){
@@ -70,7 +70,7 @@ router.get("/:id",ensureAuth,(req,res)=>{
 
 
 //user register
-router.post("/register",ensureAuth,(req,res)=>{
+router.post("/register",(req,res)=>{
     const {email, name,password} = req.body
     if(!email || !name || !password){
         return res.status(500).json({error: "please fill in all the fields"})

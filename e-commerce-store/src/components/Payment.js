@@ -7,7 +7,6 @@ import {totalCartAmount} from "../ReactContextApi/reducer";
 import ProductCheckout from "./ProductCheckout";
 import {Link, useHistory} from "react-router-dom";
 import CurrencyFormat from "react-currency-format"
-import Address from "./Address";
 
 
 
@@ -22,12 +21,6 @@ function Payment() {
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [clientSecret, setClientSecret] = useState(true);
-
-    const [data, setData] = useState([])
-
-
-
-
 
     useEffect(()=>{
         const clientSecrets = async()=>{
@@ -55,17 +48,6 @@ function Payment() {
     }
 
 
-    // useEffect(()=>{
-    //     cart.map((doc)=>{
-    //         orderPost(doc.id)
-    //
-    //     })
-    //
-    // },[])
-
-
-
-
     const handleSubmit=async (event)=>{
         event.preventDefault();
         setProcessing(true);
@@ -74,34 +56,43 @@ function Payment() {
             payment_method: {
                 card: elements.getElement(CardElement)
             }
+
+
         }).then(({ paymentIntent }) => {
-            cart.map((doc)=>{
-                orderPost(doc.id)
-            })
+            if(!error) {
+                cart.map((doc) => {
+                    orderPost(doc.id)
+                })
+                history.push('/')
+                dispatch({
+                    type: 'EMPTY_BASKET'
+                })
+
+            }
+
             setSucceeded(true);
             setError(null)
             setProcessing(false)
-            history.push('/')
         })
-        dispatch({
-            type: 'EMPTY_BASKET'
-        })
+
 
     }
     const handleChange=(event)=>{
+        setProcessing(false);
         setDisabled(event.empty);
         setError(event.error ? event.error.message : "");
+        setSucceeded(false);
+        setProcessing(false)
+
 
     }
-
 
     return(
 
         <div className="payment">
-
             <div className="payment_container">
                 <h1>
-                    Checkout (<Link to="/>payment">{cart?.length}items</Link>)
+                    Checkout ({cart?.length} items)
                 </h1>
                 <div className="payment_section">
                     <div className="payment_title">
@@ -115,17 +106,12 @@ function Payment() {
                             <p>{address.City}, {address.State}</p>
                             </>
                         ))}
-
-
-
-                        {/*<p>114 lysander dr</p>*/}
-                        {/*<p>Rochester, NY</p>*/}
                     </div>
 
                 </div>
                 <div className="payment_section">
                     <div className="payment_title">
-                        <h3>Review items and delivery</h3>
+                        <h3>Items to be delivery</h3>
                     </div>
                     <div className="payment_items">
                         {cart.map(item=>(
@@ -135,6 +121,7 @@ function Payment() {
                                 image={item.image}
                                 price={item.price}
                                 rating={item.rating}
+                                hideIncrease={true}
                             />
                         ))}
                     </div>
@@ -148,14 +135,12 @@ function Payment() {
                         {/*payment stripe*/}
                         {/*payment details here*/}
                             <form onSubmit={handleSubmit}>
-
-
-                                <CardElement onChange={handleChange}/>
-
+                                <CardElement
+                                    onChange={handleChange}/>
                             <div className="payment_priceContainer">
                                 <CurrencyFormat
                                     renderText={(value) => (
-                                        <h3>Order Total: {value}</h3>
+                                        <h3 style={{marginTop:20}}>Order Total: {value}</h3>
                                     )}
                                     decimalScale={2}
                                     value={totalCartAmount(cart)}
@@ -164,7 +149,7 @@ function Payment() {
                                     prefix={"$"}
                                 />
                                 <button  disabled={processing || disabled || succeeded}>
-                                    <span>{processing ? <p>Processing</p>:"Buy Now"}</span>
+                                    <span>{processing? <p>Processing</p>:"Buy Now"}</span>
                                 </button>
                             </div>
                             {/*errors*/}
@@ -175,10 +160,7 @@ function Payment() {
 
                 </div>
             </div>
-            {/*{cart.map(doc=>(*/}
-            {/*    console.log(doc.id)*/}
-            {/*    // <button onClick={orderPost(doc.id)}>Order</button>*/}
-            {/*    ))}*/}
+
 
         </div>
     )

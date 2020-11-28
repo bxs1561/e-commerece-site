@@ -11,7 +11,12 @@ function DisplayAddress() {
     const[data, setData] = useState([])
 
     const getUser=()=>{
-        axios.get(`/user/user/${user?._id}`
+        axios.get(`/user/user/${user?._id}`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization": "Bearer "+localStorage.getItem("jwt")
+            }
+            }
         ).then(usr=>{
             setData(usr.data)
         })

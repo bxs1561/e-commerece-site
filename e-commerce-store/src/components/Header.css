@@ -1,82 +1,74 @@
-
 .header{
-    height: 60px;
-    width: auto;
+    height: 70px;
     display: flex;
+    width: auto;
     align-items: center;
     background-color: #0064a7;
     position: sticky;
     top: 0;
     z-index: 100;
-    justify-content: space-evenly;
 }
 
-.header__logo{
-    width: 100px;
+.header_logo{
+    width: 140px;
     object-fit: contain;
-    margin: 0 10px;
-    margin-top: 7px;
+    margin: 0 36px;
+    margin-top: 6px;
+}
+
+.header_searchIcon{
+    padding: 5px;
+    height: 22px !important;
+    background-color: #cd9042;
     cursor: pointer;
 }
+.login_avatar{
+    cursor: pointer;
+    color: white;
+    margin-top: -9px;
+    margin-bottom:-4px;
+}
 
-.header__search{
+.header_search{
     display: flex;
     flex: .5;
     align-items: center;
     border-radius: 24px;
 }
-
-.header__inputSearch{
+.header_inputSearch{
     height: 12px;
     padding: 10px;
     border: none;
     width: 100%;
 }
-.searchIcon{
-    padding: 5px;
-    height: 22px !important;
-    background-color: #ffc220;
-    cursor: pointer;
-}
-
-.header__login{
+.header_option{
     display: flex;
-    /*justify-content: space-evenly;*/
-    justify-content: center;
-
-    align-items: center;
-}
-.login__avatar{
-    cursor: pointer;
+    flex-direction: row;
+    margin-left: 0px;
+    margin-right: 0px;
     color: white;
 }
 
-.header__option{
+.header_login{
     display: flex;
-    padding-left: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: white;
+    justify-content: space-evenly;
+    flex: .5;
     align-items: center;
-
-}
-
-
-.header_optionTwo{
-    margin-right: 20px;
-    padding-right: 10px;
-    color: white;
-    font-size: 13px;
-    font-weight: 800;
-    cursor: pointer;
-
 }
 
 .header_optionOne{
-    margin-right: 10px;
     font-size: 13px;
     font-weight: 800;
-    cursor: pointer;
+    margin-right:40px;
+    color: white;
+
+}
+.header_optionTwo{
+    font-size: 13px;
+    font-weight: 800;
+    margin-left:20px;
+    color: white;
+
 
 }
 
@@ -84,11 +76,11 @@
     display: flex;
     align-items: center;
     color: white;
-    cursor: pointer;
+    margin-bottom: 4px;
 }
 .header_basketCount{
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: 10px;
-
+    margin-top: -5px;
 }
 

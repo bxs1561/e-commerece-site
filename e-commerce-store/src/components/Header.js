@@ -1,6 +1,7 @@
 import React from "react"
 import "./Header.css"
 import L from "../picture/L.png"
+import Logo from "../picture/Logo.png"
 import SearchIcon from '@material-ui/icons/Search';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import Button from "@material-ui/core/Button/Button";
@@ -28,88 +29,73 @@ function Header() {
         })
         history.push("/")
     }
-    const log=()=>{
-        if(user){
-            return(
-                <div className="header_option" style={{paddingBottom: 20}}>
-                    {/*//goes to user info*/}
-                    <PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>
-                    <span className="header_optionTwo">
-                    {user?.name}
-                </span>
-                </div>
-            )
-        }
-    }
 
     return(
         <div className="header">
             <Link to="/">
+                <img  className="header_logo"
+                      src={Logo}
+                      alt=""
+                />
 
-            <div className="header__logo">
-                <img src={L} alt="NepKart Logo"/>
-            </div>
             </Link>
 
-            <div className="header__search">
-                <input className="header__inputSearch" type="text"/>
-                <SearchIcon className="searchIcon"/>
+            <div className="header_search">
+                <input className="header_inputSearch" type="text"/>
+                <SearchIcon className="header_searchIcon"/>
             </div>
-            <div className="header__login">
-                    <div className="header_option" style={{paddingBottom: 20}}>
+
+            <div className="header_login">
+
+                {/*<Link to={!user &&"/login"}>*/}
+                    <div  className="header_option">
                         <Link to={user && "/user/address"} style={{textDecoration: "none"}}>
-                        {/*go to the user information*/}
-                        {user ? (
-                            <PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>
-                        ) : (
-                            ""
-                        )}
-
-
-                        {/*<PersonOutlineOutlinedIcon className="login__avatar" style={{marginTop:10}}/>*/}
-                <span className="header_optionTwo">
-                    {!user ? "": user.name}
-                </span>
+                            {user ?(
+                            <PersonOutlineOutlinedIcon className="login_avatar"/>
+                                ):(
+                                    ""
+                            )}
+                    <span className="header_optionOne" >
+                        {!user ? "": user.name }
+                    </span>
                         </Link>
-
                         <Link to={!user && "/login"} style={{ textDecoration: 'none' }}>
-
-                    <span className="header_optionTwo" onClick={logout}>
-                        {user? "Logout" : "Login"}
-
+                        <span className="header_optionTwo" onClick={logout} style={{textDecoration: "none"}}>
+                        {user ? "Logout" : "Login"}
                     </span>
                         </Link>
                         <Link to="/register" style={{ textDecoration: 'none' }}>
                         <span className="header_optionTwo" onClick={logout}>
                         {!user && "Register"}
+                    </span>
+                        </Link>
+                    </div>
+                {/*</Link>*/}
+                    <div className="header_option" style={{marginBottom:5}}>
+                        <Link to = {user && "/order"} style={{textDecoration: "none"}}>
+
+                        <span className="header_optionTwo">
+                            {user && "Orders"}
 
                     </span>
                         </Link>
 
                     </div>
-                <div className="header__option">
-                    <span className="header_optionTwo">
-                        {/*{user && "/order"}*/}
-                        {user? "Orders": ""}
-                    </span>
-                </div>
-            {/*</div>*/}
-                <Link to={user && "/checkout"}>
+                <Link to={user && "/checkout"} style={{textDecoration: "none"}} >
+                    <div className="header_Basket">
+                        {user?(
+                            <ShoppingCartIcon/>
 
-                <div className="header_Basket">
-                {user?(
-                    <ShoppingCartIcon/>
-
-                ):(
-                    ""
-                )}
-                <span className="header_optionLineTwo header_basketCount">
+                        ):(
+                            null
+                        )}
+                        <span className="header_optionTwo header_basketCount">
                     {user && cart.length}
-                    {/*{cart.length}*/}
                     </span>
-            </div>
+                    </div>
                 </Link>
             </div>
+
         </div>
         )
 }

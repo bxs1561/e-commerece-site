@@ -22,7 +22,12 @@ function Products({id,title,image,price}) {
     }
     // console.log(cart)
     const getUserData=()=>{
-        axios.get(`/user/user/${user?._id}`
+        axios.get(`/user/user/${user?._id}`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization": "Bearer "+localStorage.getItem("jwt")
+            }
+            }
         ).then(result=>{
             localStorage.setItem("Address", JSON.stringify(result.data.Address))
         })

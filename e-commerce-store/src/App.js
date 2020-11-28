@@ -22,10 +22,8 @@ import {actionTypes} from "./ReactContextApi/reducer";
 import Address from "./components/Address";
 import DisplayAddress from "./components/DisplayAddress";
 import Edit from "./components/Edit";
-
-
-
-const stripePromise = loadStripe()
+import Order from "./components/Order";
+const stripePromise = loadStripe(process.env.REACT_APP_PUBLISH_KEY)
 function ContextReactUser() {
     const history = useHistory()
     const [{state}, dispatch] = useStateValue();
@@ -60,6 +58,10 @@ function ContextReactUser() {
             <Route path="/user/edit/address">
                 <Header/>
                 <Edit/>
+            </Route>
+            <Route path="/order">
+                <Header/>
+                <Order/>
             </Route>
             <Route path="/login">
                 <Login/>

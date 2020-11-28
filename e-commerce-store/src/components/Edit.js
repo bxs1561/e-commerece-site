@@ -21,7 +21,12 @@ function Edit() {
 
 
     useEffect(()=>{
-        axios.get(`/user/user/${user?._id}`
+        axios.get(`/user/user/${user?._id}`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization": "Bearer "+localStorage.getItem("jwt")
+            }
+            }
         ).then(usr=>{
             // console.log(usr)
             usr.data.Address.map(result=>{

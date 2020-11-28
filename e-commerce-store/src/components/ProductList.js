@@ -24,7 +24,10 @@ function ProductList() {
     }
     useEffect(()=>{
         axios.get("/product",{
-            "Authorization": "Bearer"+localStorage.getItem("jwt")
+            headers:{
+                "Content-type": "application/json",
+                "Authorization": "Bearer "+localStorage.getItem("jwt")
+            }
         }).then(result=>{
             setProduct(result.data)
 
