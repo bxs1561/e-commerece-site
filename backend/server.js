@@ -5,15 +5,10 @@ const productRouter = require("./routes/ProductRoutes")
 const paymentRouter = require("./routes/PaymentRoute")
 const orderRouter = require("./routes/OrdersRoutes")
 const mongoose = require("mongoose")
-
 const cors = require('cors');
-
-
-
 
 require('dotenv').config()
 
-// require("./AuthConfirm")(passport)
 const app = express();
 
 const port = process.env.PORT || 9000;

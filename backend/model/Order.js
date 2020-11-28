@@ -5,11 +5,6 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    // address: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Address",
-    //     required: true
-    // },
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",

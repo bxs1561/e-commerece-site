@@ -6,11 +6,9 @@ const jwt = require("jsonwebtoken");
 const {ensureAuth} = require("../Auth")
 
 
-router.get("/protect",(req,res)=>{
-    res.send("hello")
-})
+
 //get all the users
-router.get("/",(req,res)=>{
+router.get("/",ensureAuth,(req,res)=>{
     User.find((err,data)=>{
         if(err){
             res.status(500).send(err)
@@ -22,7 +20,7 @@ router.get("/",(req,res)=>{
 
 });
 
-router.post("/signin",(req,res)=>{
+router.post("/signin",ensureAuth,(req,res)=>{
     const {email, password} = req.body;
 
     if(!email || !password){
@@ -64,7 +62,7 @@ router.post("/signin",(req,res)=>{
 
 
 //get user base on id
-router.get("/:id",(req,res)=>{
+router.get("/:id",ensureAuth,(req,res)=>{
     User.findById(req.params.id)
         .then(user=>res.status(500).send(user))
         .catch(err => res.status(400).json('Error: ' + err))
@@ -72,7 +70,7 @@ router.get("/:id",(req,res)=>{
 
 
 //user register
-router.post("/register",(req,res)=>{
+router.post("/register",ensureAuth,(req,res)=>{
     const {email, name,password} = req.body
     if(!email || !name || !password){
         return res.status(500).json({error: "please fill in all the fields"})

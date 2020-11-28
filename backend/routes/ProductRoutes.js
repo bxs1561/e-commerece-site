@@ -19,7 +19,7 @@ router.get("/",(req,res)=>{
 });
 
 //search product by id
-router.get("/:id",(req,res)=> {
+router.get("/:id",ensureAuth,(req,res)=> {
     Product.findById(req.params.id, (err, data) => {
         if (err) {
             res.status(500).send(err)
@@ -33,7 +33,7 @@ router.get("/:id",(req,res)=> {
 
 
 //add product
-router.post("/add",(req,res)=>{
+router.post("/add",ensureAuth,(req,res)=>{
     console.log(req.body._id)
     Product.create(req.body,(err,data)=>{
         if(err){
@@ -44,7 +44,7 @@ router.post("/add",(req,res)=>{
         }
     })
 });
-router.get("/products/:title",(req,res)=>{
+router.get("/products/:title",ensureAuth,(req,res)=>{
     Product.findOne({title: req.params.title},(err,data)=>{
         if(err){
             res.status(500).send(err)

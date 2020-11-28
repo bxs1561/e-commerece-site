@@ -6,8 +6,9 @@ const User = require("../model/User")
 
 
 
+
 //get all the address of the user
-router.get("/address",(req,res)=>{
+router.get("/address",ensureAuth,(req,res)=>{
 
     Address.find((err,data)=> {
         if (err) {
@@ -27,11 +28,6 @@ router.post("/address",ensureAuth,(req,res)=>{
     if(!address || !city || !state || !zipCode || !phone){
         return res.status(500).json({error: "Please fill in the fields"})
     }
-    //not store passwords with user
-    // req.user.password = undefined
-    // req.body.user = req.user.id
-    // User.findById(req.user.id).then(user=>{
-
         const newAddress = new Address({
             address,
             city,
@@ -48,7 +44,7 @@ router.post("/address",ensureAuth,(req,res)=>{
 });
 
 //show single address
-router.get("/:id",(req,res)=> {
+router.get("/:id",ensureAuth,(req,res)=> {
     Address.findById(req.params.id, (err, data) => {
         if (err) {
             res.status(500).send(err)
@@ -58,7 +54,7 @@ router.get("/:id",(req,res)=> {
         }
     })
 })
-router.get("/user/:userId",(req,res)=>{
+router.get("/user/:userId",ensureAuth,(req,res)=>{
     Address.find({user:req.params.userId},(err,data)=>{
         if(err){
             res.status(500).send(err)
@@ -75,7 +71,7 @@ router.get("/user/:userId",(req,res)=>{
 
 //update address
 
-router.put("/edit/:usrId",(req,res)=>{
+router.put("/edit/:usrId",ensureAuth,(req,res)=>{
     Address.findOneAndUpdate(req.params.id,req.body, {
         new: true
     }).then(result=>{

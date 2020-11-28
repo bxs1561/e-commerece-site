@@ -3,6 +3,7 @@ require('dotenv').config();
 const stripe = require("stripe")(process.env.SECRET_KEY);
 const router = express.Router();
 const cors = require('cors');
+const {ensureAuth} = require("../Auth")
 
 
 

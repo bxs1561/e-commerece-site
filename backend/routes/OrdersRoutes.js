@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../model/Order")
-const mongoose = require("mongoose")
 const {ensureAuth} = require("../Auth")
 const nodemailer = require('nodemailer')
 const Product = require("../model/Product")
@@ -38,7 +37,7 @@ router.post("/add",ensureAuth,(req,res)=>{
             secure: false, // true for 465, false for other ports
             auth: {
                 user: "jamebuddha@gmail.com", // generated ethereal user
-                pass: "pass", // generated ethereal password
+                pass: process.env.EMAIL_PASS, // generated ethereal password
             },
             //When using localhost
             tls: {
@@ -63,13 +62,6 @@ router.post("/add",ensureAuth,(req,res)=>{
         return res.status(500).send(error)
     })
 
-    // req.user.password = ""
-
-    // const newOrder =  Order({
-    //     // address: req.address,
-    //     user:req.user,
-    //     products: req.products,
-    // })
 
     Order.create(req.body).then(result=>{
         return res.status(201).json({
@@ -81,7 +73,7 @@ router.post("/add",ensureAuth,(req,res)=>{
     })
 })
 
-router.get("/",(req,res)=>{
+router.get("/",ensureAuth,(req,res)=>{
     Order.find().populate("user","-password").populate("product").populate("address").sort("desc").then(result=>{
         res.json({
             Count:result.length,
@@ -91,19 +83,20 @@ router.get("/",(req,res)=>{
     })
 })
 
-router.get("/:id",(req,res)=>{
+router.get("/:id",ensureAuth,(req,res)=>{
     Order.findById(req.params.id).populate("user").populate("product").then(result=>{
         res.json(result)
     }).catch(error=>{
         res.status(500).json(error)
     })
 })
-router.get("/user/:userId",(req,res)=>{
+router.get("/user/:userId",ensureAuth,(req,res)=>{
     Order.find({user:req.params.userId},(err,data)=>{
         if(err){
             res.status(500).send(err)
         }
         else{
+            data.sort((a,b)=>{return b.createdAt-a.createdAt})
             res.status(201).json({
                 Count: data.length,
                 Order:data})

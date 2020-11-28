@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const{object}= mongoose.Schema.Types
 
 const addressSchema = mongoose.Schema({
     address: {
