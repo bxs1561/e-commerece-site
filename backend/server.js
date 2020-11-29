@@ -39,6 +39,14 @@ app.use("/product", productRouter);
 app.use("/payment", paymentRouter)
 app.use("/orders",orderRouter)
 
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static('e-commerce-store/build'))
+    const path = require('path')
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'e-commerce-store','build','index.html'))
+    })
+}
+
 
 
 app.listen(port,()=>console.log(`connecting to: ${port}`));

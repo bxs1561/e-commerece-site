@@ -3,7 +3,6 @@ import axios from "./axios"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import "./DisplayAddress.css"
 import {Link} from "react-router-dom";
-import {actionTypes} from "../ReactContextApi/reducer";
 
 
 function DisplayAddress() {

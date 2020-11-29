@@ -4,7 +4,6 @@ import {useStateValue} from "../ReactContextApi/StateProvider";
 import {useHistory} from "react-router-dom"
 import axios from "./axios"
 import {toast} from "react-toastify";
-import {actionTypes} from "../ReactContextApi/reducer";
 
 function Edit() {
     const[{user},dispatch] = useStateValue()

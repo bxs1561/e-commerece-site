@@ -1,10 +1,8 @@
 import React from "react"
 import "./Header.css"
-import L from "../picture/L.png"
 import Logo from "../picture/Logo.png"
 import SearchIcon from '@material-ui/icons/Search';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
-import Button from "@material-ui/core/Button/Button";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {
     BrowserRouter as Router,

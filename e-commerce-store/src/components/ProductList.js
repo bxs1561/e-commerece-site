@@ -9,7 +9,6 @@ import axios from "./axios"
 function ProductList() {
     const image0=Ads
     const image1= Adsq
-    // const image1="https://images-na.ssl-images-amazon.com/images/G/01/Audible/en_US/images/creative/amazon/Minerva-Holiday-2020-GW-HeroDesktop_x2_3000x1200_Plus_V03._CB402929219_.jpg"
     const[image,setImage] = useState([image0,image1])
     const [count, setCount] = useState(0);
     const[product, setProduct] = useState([])

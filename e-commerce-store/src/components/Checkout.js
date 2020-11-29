@@ -4,7 +4,6 @@ import ProductCheckout from "./ProductCheckout";
 import Total from "./Total";
 import {useHistory} from "react-router-dom"
 import {useStateValue} from "../ReactContextApi/StateProvider";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import {actionTypes} from "../ReactContextApi/reducer";
 
 function Checkout() {

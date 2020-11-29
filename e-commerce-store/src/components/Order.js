@@ -4,7 +4,6 @@ import {useStateValue} from "../ReactContextApi/StateProvider";
 import axios from "./axios"
 import moment from "moment";
 import ProductCheckout from "./ProductCheckout";
-import CurrencyFormat from "react-currency-format"
 
 
 

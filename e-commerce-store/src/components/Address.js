@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import "./Address.css"
 import {useStateValue} from "../ReactContextApi/StateProvider";
 import {useHistory} from "react-router-dom"
 import axios from "./axios"
 import {toast} from "react-toastify";
-import {actionTypes} from "../ReactContextApi/reducer";
 
 function Address() {
     const[{user, addr},dispatch] = useStateValue()
